@@ -8,9 +8,32 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct DetailsView: View {
+    let message: String
+
     var body: some View {
-        Text("Hello World")
+        VStack {
+            Text(message)
+                .font(.largeTitle)
+        }
+    }
+}
+
+struct ContentView: View {
+    
+    private let messages = [
+        "Hello", "How are you?"
+    ]
+
+    
+    var body: some View {
+        NavigationView {
+            List(messages, id: \.self) { message in
+                NavigationLink(destination: DetailsView(message: message)) {
+                    Text(message)
+                }
+            }.navigationBarTitle("Messages")
+        }
     }
 }
 
